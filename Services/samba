@@ -1,4 +1,10 @@
+CONNECT AND MANUAL ENUMERATION
+
 smbmap -H ip # get available directories for guest user
 smbmap -H ip -u user -p password # get available directories for concrete user
 smbclient -L //ip # connect to samba as gues
 smbclient -L //ip -U 'user' # connect ro sabma as user
+
+NMAP ENUMAERATION
+nmap -p 139,445 --script "nmap-vuln-*" ip
+nmap -p 139,445 --script "smb-enum-* and not brute" ip
