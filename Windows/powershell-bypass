@@ -1,0 +1,1 @@
+powershell -nop -ep bypass -c "command"
