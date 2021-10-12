@@ -1,0 +1,4 @@
+HYDRA
+hydra -V -f -l user -P pass_wordlist ip smb # samba brute-force
+hydra -V -f -l user -P pass_wordlist ip ftp # ftp brute-force
+hydra -V -f -l user -P pass_wordlist rdp://ip # rdp brute-force
