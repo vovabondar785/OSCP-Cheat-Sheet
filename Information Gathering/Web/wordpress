@@ -1,5 +1,0 @@
-SCAN
-wpscan --rua -e --url <URL>
-
-BRUTE FORCE
-wpscan --rua --url <URL> -P <PASSWORDS_LIST> -U "<USER>,<USER>"

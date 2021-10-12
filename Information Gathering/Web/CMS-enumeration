@@ -1,0 +1,14 @@
+WORDPRESS SCAN
+wpscan --rua -e --url <URL>
+
+WORDPRESS BRUTE FORCE
+wpscan --rua --url <URL> -P <PASSWORDS_LIST> -U "<USER>,<USER>"
+
+DRUPAL SCAN
+droopescan scan -u <URL>
+
+JOOMLA
+joomscan -u <URL>
+
+WEBDAV
+davtest -url <URL>
