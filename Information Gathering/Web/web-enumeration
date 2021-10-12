@@ -1,0 +1,2 @@
+NIKTO
+nikto -url http://ip/
