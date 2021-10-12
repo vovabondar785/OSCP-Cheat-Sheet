@@ -1,0 +1,7 @@
+ENUMARATION
+dnsenum domain
+dnsrecon -d domain
+
+ZONE TRANSFER
+dnsrecon -d domain -a
+dig axfr domain @ns1.test.com
