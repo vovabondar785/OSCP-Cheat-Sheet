@@ -1,1 +1,0 @@
-certutil -urlcache -split -f "https://url/file" file
