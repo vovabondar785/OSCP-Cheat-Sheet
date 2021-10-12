@@ -7,4 +7,4 @@ hashcat -m 1000 -a 0 -o cracked.txt hashes.txt wordlist # NTLM
 JOHN THE RIPPER  
 john --wordlist path hashes.txt
 
-[CRACK STATION](https://crackstation.net/)
+[Crack Station](https://crackstation.net/)
