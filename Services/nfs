@@ -1,0 +1,7 @@
+ENUMERATION
+showmount -e ip
+nmap -p 2049 --script=nfs-showmount -oN mountable_shares ip
+
+MOUNT A SHARE
+sudo mount -v -t nfs ip:share directory
+sudo mount -v -t nfs -o vers=2 ip:share directory
