@@ -1,14 +1,14 @@
 WORDPRESS SCAN
-wpscan --rua -e --url <URL>
+wpscan --rua -e --url http://ip
 
 WORDPRESS BRUTE FORCE
-wpscan --rua --url <URL> -P <PASSWORDS_LIST> -U "<USER>,<USER>"
+wpscan --rua --url http://ip -P path -U "user,user"
 
 DRUPAL SCAN
-droopescan scan -u <URL>
+droopescan scan -u http://ip
 
 JOOMLA
-joomscan -u <URL>
+joomscan -u http://ip
 
 WEBDAV
-davtest -url <URL>
+davtest -url http://ip
