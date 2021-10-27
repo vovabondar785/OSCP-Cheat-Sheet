@@ -217,6 +217,9 @@ except: #if a connection can't be made, print an error and exit cleanly
 
 After this need to right-click on the ESP value and select “Follow in Dump” to follow ESP in the application dump and see if all the characters were sent.
 When we find the bad character we delete it from variable and write somewhere. Need to repeat this actions until we get all characters properly.
+One piece to note is that \x0a (line feed) and \x0d (carriage return) are considered a best practice to treat as bad characters, 
+even if they don't break the chain. Sometimes everything will work even if you don't exclude them, 
+but it will not hurt you to exclude them along with \x00 so long as you have enough good characters to generate your shellcode.
 
 5. FINDING A JMP ESP RETURN ADDRESS
 
