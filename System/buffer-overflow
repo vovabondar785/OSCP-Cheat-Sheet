@@ -158,7 +158,7 @@ except: #if a connection can't be made, print an error and exit cleanly
 
 To calculate how many C characters made it into ESP, all we need to do is subtract the address where ESP starts to the one where the Cs end.
 For example, we can do it with python:
-python -c "0x029BFE0C - 0x029BFBE4"
+python -c "print(0x029BFE0C - 0x029BFBE4)"
 
 4. TESTING FOR BAD CHARACTERS
 
