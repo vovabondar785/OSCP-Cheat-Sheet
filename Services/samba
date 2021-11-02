@@ -4,7 +4,7 @@ smbmap -H ip # get available directories for guest user
 smbmap -H ip -u user -p password # get available directories for concrete user
 smbclient -L //ip # connect to samba as guest
 smbclient -L //ip -U 'user' # connect to sabma as user
-smbclient --list //10.10.10.134/ -U "" # list of shares as guest
+smbclient --list //ip/ -U "" # list of shares as guest
 psexec.py domain/user:pass@ip
 psexec.py domain/user@ip -hashes :nthash
 
