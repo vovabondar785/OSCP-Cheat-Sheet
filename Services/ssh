@@ -1,0 +1,5 @@
+CREATE PAIR SSH KEYS
+1. ssh-keygen tool for creating keys
+2. Create .ssh directory in ~/ directory if not exist
+3. Move to .ssh directory in authorized_keys file public key value
+4. Connect via ssh using private key
