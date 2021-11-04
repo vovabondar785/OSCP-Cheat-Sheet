@@ -3,3 +3,7 @@ CREATE PAIR SSH KEYS
 2. Create .ssh directory in ~/ directory if not exist
 3. Move to .ssh directory in authorized_keys file public key value
 4. Connect via ssh using private key
+
+SSH PORT FORWARDING
+ssh -L 80:localhost:80 remote_ip # Local Forwarding 
+ssh -R 80:localhost:80 remote_ip # Remote Forwarding
