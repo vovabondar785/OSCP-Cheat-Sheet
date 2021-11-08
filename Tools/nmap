@@ -1,0 +1,4 @@
+FAST SCANNING
+
+nmap -sU -p- --min-rate 5000 --max-retries 1 10.10.10.74 # upd ports
+nmap -sT -p- --min-rate 5000 --max-retries 1 10.10.10.74 # tcp ports
