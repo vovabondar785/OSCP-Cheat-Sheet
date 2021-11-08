@@ -1,3 +1,3 @@
-python -m pyftpdlib -p 21 -u anon -P qwerty # start own ftp server on Kali
+python -m pyftpdlib -p 21 -u anon -P qwerty -w # start own ftp server on Kali
 
 DO NOT FORGET TO SWITCH TRANSFER MODE!
