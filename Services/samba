@@ -1,5 +1,4 @@
 CONNECT AND MANUAL ENUMERATION
-
 smbmap -H ip # get available directories for guest user
 smbmap -H ip -u user -p password # get available directories for concrete user
 smbmap -H ip -u user -p password -R share # get concrete directory with concrete user
