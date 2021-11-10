@@ -87,3 +87,7 @@ reg query HKLM /f password /t REG_SZ /s
 cmdkey /list
 C:\Windows\Repair\SAM
 C:\Windows\Repair\SYSTEM
+
+------HIDDELFILES------
+
+ls -force # in powershell
