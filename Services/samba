@@ -11,3 +11,6 @@ psexec.py domain/user@ip -hashes :nthash
 NMAP ENUMAERATION
 nmap -p 139,445 --script "nmap-vuln-*" ip
 nmap -p 139,445 --script "smb-enum-* and not brute" ip
+
+START IMPACKET SMBSERVER
+python smbserver.py sharename sharepath
