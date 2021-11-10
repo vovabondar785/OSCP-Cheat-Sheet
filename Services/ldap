@@ -1,5 +1,5 @@
 NMAP ENUMERATION
-nmap -n -sV --script "ldap* and not brute"
+nmap -n -sV --script "ldap* and not brute" ip
 
 SCAN
 ldapsearch -h ip -x -s base
