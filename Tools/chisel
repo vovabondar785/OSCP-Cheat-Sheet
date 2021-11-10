@@ -1,1 +1,5 @@
+ON LINUX
+./chisel server -p port1 --reverse
 
+ON WINDOWS
+chisel.exe client ip:port1 R:port2:localhost:port2
