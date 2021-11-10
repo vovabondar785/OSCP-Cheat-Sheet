@@ -4,6 +4,7 @@ rpcclient -U "" -N ip # connect to remote machine as guest
 ENUMERATION
 enumdomusers # get users in domain
 enumdomgroups # get groups in domain
+querydispinfo # info about all users
 querygroup address
 querygroupmem address
 queryuser address
