@@ -1,2 +1,3 @@
+CRACKING
 unshadow passwd shadow > unshadow
 hashcat unshadow wordlist
