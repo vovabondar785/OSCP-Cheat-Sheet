@@ -1,0 +1,2 @@
+FINDING FILE
+where /R c:\ filename # recurive finding from c:\ directory
