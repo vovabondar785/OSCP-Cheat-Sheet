@@ -1,3 +1,4 @@
+HOW TO GET IT
 target terminal:
 
 python -c "import pty;pty.spawn('/bin/bash');"
