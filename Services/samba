@@ -2,7 +2,7 @@ CONNECT AND MANUAL ENUMERATION
 
 smbmap -H ip # get available directories for guest user
 smbmap -H ip -u user -p password # get available directories for concrete user
-smbmap -H ip -u -p -R share # get concrete directory with concrete user
+smbmap -H ip -u user -p password -R share # get concrete directory with concrete user
 smbclient -L //ip # connect to samba as guest
 smbclient -L //ip -U 'user' # connect to sabma as user
 smbclient --list //ip/ -U "" # list of shares as guest
