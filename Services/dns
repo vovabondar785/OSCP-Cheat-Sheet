@@ -1,6 +1,6 @@
 ENUMARATION
-dnsenum domain
-dnsrecon -d domain
+dnsenum --dnsserver ip domain
+dnsrecon -n ip -d domain
 
 ZONE TRANSFER
 dnsrecon -d domain -a
