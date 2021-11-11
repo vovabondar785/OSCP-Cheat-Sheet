@@ -1,0 +1,2 @@
+ENUM USERNAMES
+kerbrute userenum -d domen wordlist --dc ip
