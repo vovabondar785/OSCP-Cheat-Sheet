@@ -1,2 +1,2 @@
-WINDOWS ENUMERATION
+WINDOWS USERS ENUMERATION
 crackmapexec target ip -u users -p passwords # check users, targets - smb, mssql, winrm, ssh, ldap
