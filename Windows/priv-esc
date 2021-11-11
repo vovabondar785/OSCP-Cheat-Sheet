@@ -88,7 +88,7 @@ cmdkey /list
 C:\Windows\Repair\SAM
 C:\Windows\Repair\SYSTEM
 
-------HIDDELFILES------
+------HIDDEHFILES------
 
 ls -force # in powershell
 
