@@ -1,6 +1,0 @@
-WGET
-wget http://ip/file # download to the current directory
-wget http://ip/file -O file # download with custom directory
-
-CURL
-curl http://ip/file -o file # download with custom directory
