@@ -1,3 +1,0 @@
-CONNECTING
-If we have credentials in format 'administrator%u6!4ZwgwOM#^OBf#Nwnh' and smb port, we can use this tool for connecting with command below
-winexe -U 'administrator%u6!4ZwgwOM#^OBf#Nwnh' //ip cmd.exe
