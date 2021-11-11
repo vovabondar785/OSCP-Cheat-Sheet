@@ -8,3 +8,5 @@ querydispinfo # info about all users
 querygroup address
 querygroupmem address
 queryuser address
+srvinfo
+lookupnames name
