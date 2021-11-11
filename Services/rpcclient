@@ -1,5 +1,5 @@
 CONNECTING
-rpcclient -U "" -N ip # connect to remote machine as guest
+rpcclient -U "" -N ip # connect to the remote machine as guest
 
 ENUMERATION
 enumdomusers # get users in domain
