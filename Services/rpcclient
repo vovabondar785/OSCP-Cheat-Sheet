@@ -10,3 +10,4 @@ querygroupmem address
 queryuser address
 srvinfo
 lookupnames name
+enumprinters
