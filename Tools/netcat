@@ -1,0 +1,6 @@
+TRANSFERING FILES
+ON LINUX
+netcat -l port > filename
+
+ON WINDOWS
+nc.exe -w 2 ip port < filename
