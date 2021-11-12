@@ -8,3 +8,6 @@ dig axfr domain @ns1.test.com
 
 NMAP SCAN
 nmap -n --script "(default and *dns*) or fcrdns or dns-srv-enum or dns-random-txid or dns-random-srcport" ip
+
+SUBDOMAINS ENUMERATION 
+wfuzz -c -w path_to_wordlist -u 'http://target.dmn' -H "Host: FUZZ.target.dmn" --hw number
