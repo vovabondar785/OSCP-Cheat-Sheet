@@ -1,3 +1,8 @@
 FAST SCANNING
 nmap -sU -p- --min-rate 5000 --max-retries 1 ip # upd ports
 nmap -sT -p- --min-rate 5000 --max-retries 1 ip # tcp ports
+
+USEFUL SCANS
+nmap -p- -sV -sC -A --open ip | tee nmap/full.scan
+nmap -F -sV -sC -A ip | tee nmap/fast.scan
+nmap --script vuln ip | tee nmap/vulns.scan
