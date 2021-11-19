@@ -1,0 +1,8 @@
+DEFAULT USERS ENUMERATION
+finger user@ip
+finger admin@ip
+
+USERS ENUMERATION WITH DICTIONARY
+finger-user-enum.pl from pentestmonkey
+
+finger-user-enum.pl -U users.txt -t 10.0.0.1
