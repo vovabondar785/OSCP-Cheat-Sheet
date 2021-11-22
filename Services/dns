@@ -5,6 +5,7 @@ dnsrecon -n ip -d domain
 ZONE TRANSFER
 dnsrecon -d domain -a
 dig axfr domain @ns1.test.com
+dig axfr domain @ip
 
 NMAP SCAN
 nmap -n --script "(default and *dns*) or fcrdns or dns-srv-enum or dns-random-txid or dns-random-srcport" ip
